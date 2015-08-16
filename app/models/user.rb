@@ -7,13 +7,24 @@ class User < ActiveRecord::Base
                     uniqueness: { case_sensitive: false }
   has_secure_password
   
+  # フォロー中
   has_many :following_relationships, class_name:  "Relationship", foreign_key: "follower_id", dependent: :destroy
   has_many :following_users, through: :following_relationships, source: :followed
+  # フォローされている
   has_many :followed_relationships, class_name:  "Relationship", foreign_key: "followed_id", dependent: :destroy
   has_many :followed_users, through: :followed_relationships, source: :follower
 
+  # Ownershipの関連
   has_many :ownerships , foreign_key: "user_id", dependent: :destroy
   has_many :items ,through: :ownerships
+  
+  # Wantの関連追加
+  has_many :wants, class_name: "Want", foreign_key: "user_id", dependent: :destroy
+  has_many :want_items , through: :wants, source: :item
+  
+  # Haveの関連追加
+  has_many :haves, class_name: "Have", foreign_key: "user_id", dependent: :destroy
+  has_many :have_items , through: :haves, source: :item
 
 
   # 他のユーザーをフォローする
@@ -30,21 +41,29 @@ class User < ActiveRecord::Base
   end
 
   ## TODO 実装
-  def have(item)
-  end
-
-  def unhave(item)
-  end
-
-  def have?(item)
-  end
-
   def want(item)
+    wants.create(user_id: item.id)
   end
 
   def unwant(item)
+    wants.find_by(user_id: item.id).destroy
   end
 
   def want?(item)
+    wants.include?(item)
   end
+  
+  
+  def have(item)
+    haves.create(user_id: item.id)
+  end
+
+  def unhave(item)
+    haves.find_by(user_id: item.id).destroy
+  end
+
+  def have?(item)
+    haves.include?(item)
+  end
+
 end
