@@ -17,12 +17,6 @@ class ItemsController < ApplicationController
 
 
   def show
-    # Haveしたユーザー情報を取得
-    @have_users = @item.have_users
-    
-    # Wantしたユーザー情報を取得
-    @want_users = @item.want_users
-    
   end
 
 
