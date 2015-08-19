@@ -25,10 +25,6 @@ class OwnershipsController < ApplicationController
       @item.large_image  = amazon_item.get("LargeImage/URL")
       @item.detail_page_url = amazon_item.get("DetailPageURL")
       @item.raw_info        = amazon_item.get_hash
-      
-      # ブレークポイント
-      # binding.pry
-      
       @item.save!
     end
 

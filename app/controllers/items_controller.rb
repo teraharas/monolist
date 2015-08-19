@@ -4,10 +4,7 @@ class ItemsController < ApplicationController
 
   def new
     if params[:q]
-      
-      # ブレークポイント
-      # binding.pry
-      
+     
       response = Amazon::Ecs.item_search(params[:q] , 
                                   :search_index => 'All' , 
                                   :response_group => 'Medium' , 
@@ -18,8 +15,16 @@ class ItemsController < ApplicationController
     end
   end
 
+
   def show
+    # Haveしたユーザー情報を取得
+    @have_users = @item.have_users
+    
+    # Wantしたユーザー情報を取得
+    @want_users = @item.want_users
+    
   end
+
 
   private
   def set_item
