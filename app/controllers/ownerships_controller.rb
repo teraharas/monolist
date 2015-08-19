@@ -11,7 +11,7 @@ class OwnershipsController < ApplicationController
     # itemsテーブルに存在しない場合はAmazonのデータを登録する。
     if @item.new_record?
       begin
-        # TODO 商品情報の取得 Amazon::Ecs.item_lookupを用いてください
+        # 商品情報の取得 Amazon::Ecs.item_lookupを用いてください
         response = Amazon::Ecs.item_lookup(params[:asin], :response_group => 'Medium', :country => 'jp')
       rescue Amazon::RequestError => e
         return render :js => "alert('#{e.message}')"
@@ -32,7 +32,7 @@ class OwnershipsController < ApplicationController
       @item.save!
     end
 
-    # TODO ユーザにwant or haveを設定する
+    # ユーザにwant or haveを設定する
     # params[:type]の値ににHaveボタンが押された時にはの時は「Have」,
     # Wantボタンがされた時には「Want」が設定されています。
     if params[:type] == "Want"
@@ -46,7 +46,7 @@ class OwnershipsController < ApplicationController
   def destroy
     @item = Item.find(params[:item_id])
 
-    # TODO 紐付けの解除。 
+    # 紐付けの解除。 
     # params[:type]の値ににHavedボタンが押された時にはの時は「Have」,
     # Wantedボタンがされた時には「Want」が設定されています。
     if params[:type] == "Want"

@@ -40,7 +40,7 @@ class User < ActiveRecord::Base
     following_users.include?(other_user)
   end
 
-  ## TODO 実装
+  # Want登録・削除・存在チェック関連
   def want(user,item)
     wants.find_or_create_by(item_id: item.id)
   end
@@ -53,7 +53,7 @@ class User < ActiveRecord::Base
     want_items.include?(item)
   end
   
-  
+  # Have登録・削除・存在チェック関連
   def have(user,item)
     haves.find_or_create_by(item_id: item.id)
   end

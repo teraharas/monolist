@@ -3,7 +3,7 @@
     <div class="item-single-main">
       <div class="image">
         <div class="img-wrap">
-          <% #TODO 商品イメージ %>
+          <% #商品イメージ %>
           <% if @item.large_image == nil %>
             <%= image_tag("no-image.png" , alt: @item.title) %>
           <% else %>
@@ -12,7 +12,7 @@
         </div>
       </div>
       <div class="title">
-        <% #TODO 商品タイトル %>
+        <% #商品タイトル %>
         <%= @item.title %>
       </div>
       <%= render 'action' , item: @item %>
