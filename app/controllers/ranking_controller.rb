@@ -8,7 +8,7 @@ class RankingController < ApplicationController
               on(item[:id].eq(ownership[:item_id])).join_sources
 
     @have_items = Item.joins(join_condition).group(:id, :title, :large_image).
-            select(item[:id], item[:title], item[:large_image], item[:id].sum.as('cnt')).
+            select(item[:id], item[:title], item[:large_image], item[:id].count.as('cnt')).
             where(ownership[:type].eq('Have')).
             order('cnt DESC').limit(10)
   end
@@ -21,7 +21,7 @@ class RankingController < ApplicationController
               on(item[:id].eq(ownership[:item_id])).join_sources
 
     @want_items = Item.joins(join_condition).group(:id, :title, :large_image).
-            select(item[:id], item[:title], item[:large_image], item[:id].sum.as('cnt')).
+            select(item[:id], item[:title], item[:large_image], item[:id].count.as('cnt')).
             where(ownership[:type].eq('Want')).
             order('cnt DESC').limit(10)
   end
